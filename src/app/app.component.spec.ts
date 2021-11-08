@@ -28,16 +28,9 @@ describe('AppComponent ', () => {
   });
 
   it('should add Todo', () => {
-    component._toDo = { task: 'Learn something' };
+    component._toDo = 'Learn something';
     component.addToDo();
-    let todoList: string[] = [];
-    component.incompleteToDos.subscribe((val) => {
-      for (let i = 0; i < val.length; i++) {
-        todoList.push(val[i].task);
-      }
-    });
-    console.log(todoList);
-    expect(todoList).toContain('Learn something');
+    expect(component.toDos[2].task).toContain('Learn something');
   });
 
   it('should set todoList to completed', () => {
