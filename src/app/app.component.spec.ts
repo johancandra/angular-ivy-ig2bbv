@@ -34,12 +34,16 @@ describe('AppComponent ', () => {
   });
 
   it('should set todoList to completed', () => {
-    component.addToDo(2);
-    expect(component.toDos[2].complete).toBeFalsy();
+    component._toDo = 'Learn something';
+    component.addToDo();
+    component.onCompleteToDo(2);
+    expect(component.toDos[2].complete).toBeTruthy();
   });
 
   it('should set todoCompleted to todoList', () => {
-    component.addToDo(2);
-    expect(component.toDos[2].complete).toBeTruthy();
+    component._toDo = 'Learn something';
+    component.addToDo();
+    component.onIncompleteToDo(2);
+    expect(component.toDos[2].complete).toBeFalsy();
   });
 });
