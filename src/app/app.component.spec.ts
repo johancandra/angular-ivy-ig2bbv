@@ -1,5 +1,6 @@
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { TodoComponent } from './components/todo/todo.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StateModule } from './state/state.module';
 import { completeToDos, incompleteToDos } from './state/todo';
@@ -19,7 +20,6 @@ describe('AppComponent ', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
@@ -34,37 +34,12 @@ describe('AppComponent ', () => {
   });
 
   it('should set todoList to completed', () => {
-    let todoList: any[] = [];
-    let todoCompleted: any[] = [];
-    let todoCompletedLength: number;
-    let status: boolean = false;
-    component.completeToDos.subscribe((data) => {
-      todoCompleted = data;
-      console.log(todoCompleted);
-      if (!status) {
-        todoCompletedLength = data.length;
-      }
-      status = true;
-    });
-    component.incompleteToDos.subscribe((data) => (todoList = data));
-    component.onCompleteToDo(todoList[1]);
-    expect(todoCompleted.length).toBeGreaterThan(todoCompletedLength);
+    component.addToDo(2);
+    expect(component.toDos[2].complete).toBeFalsy();
   });
 
   it('should set todoCompleted to todoList', () => {
-    let todoList: any[] = [];
-    let todoCompleted: any[] = [];
-    let todoListLength: number;
-    let status: boolean = false;
-    component.incompleteToDos.subscribe((data) => {
-      todoList = data;
-      if (!status) {
-        todoListLength = data.length;
-      }
-      status = true;
-    });
-    component.completeToDos.subscribe((data) => (todoCompleted = data));
-    component.onIncompleteToDo(todoCompleted[0]);
-    expect(todoList.length).toBeGreaterThan(todoListLength);
+    component.addToDo(2);
+    expect(component.toDos[2].complete).toBeTruthy();
   });
 });
